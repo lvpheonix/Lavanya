@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Passport Application Form</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #fff;
+    margin: 0;
+    padding: 20px;
+  }
+  .container {
+    width: 900px;
+    max-width: 100%;
+    margin: auto;
+    border: 1px solid #000;
+    padding: 20px;
+  }
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .header img {
+    width: 50px;
+    vertical-align: middle;
+    margin-right: 10px;
+  }
+  .header h1 {
+    display: inline-block;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+    vertical-align: middle;
+  }
+  /* Form Rows */
+  .form-row {
+    display: flex;
+    margin-bottom: 12px;
+    align-items: center;
+  }
+  .form-row label {
+    width: 260px; /* fixed width label */
+    font-weight: bold;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .form-row input,
+  .form-row select {
+    flex: 1;
+    padding: 6px;
+    font-size: 14px;
+  }
+  .options {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="header">
+      <img src="https://i.pinimg.com/originals/b1/7d/23/b17d2311f823936b4b0649db9abe5983.png" alt="Emblem">
+      <h1>PASSPORT APPLICATION FORM</h1>
+    </div>
+
+    <!-- Service Required -->
+    <div class="form-row">
+      <label>Applying for *</label>
+      <input type="text">
+    </div>
+
+    <div class="form-row">
+      <label>Type of Application *</label>
+      <div class="options">
+        <label><input type="radio" name="appType"> Normal</label>
+        <label><input type="radio" name="appType"> Tatkaal</label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label>Type of Passport Booklet *</label>
+      <div class="options">
+        <label><input type="radio" name="booklet"> 36 Pages</label>
+        <label><input type="radio" name="booklet"> 60 Pages</label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label>Validity Required *</label>
+      <div class="options">
+        <label><input type="radio" name="validity"> 10 years</label>
+        <label><input type="radio" name="validity"> Up to age 18</label>
+        <label><input type="radio" name="validity"> Not Applicable</label>
+      </div>
+    </div>
+
+    <!-- Applicant Details -->
+    <div class="form-row">
+      <label>Applicant’s Given Name *</label>
+      <input type="text" placeholder="First Name followed by Middle Name">
+    </div>
+
+    <div class="form-row">
+      <label>Surname</label>
+      <input type="text">
+    </div>
+
+    <div class="form-row">
+      <label>Are you known by any other names (aliases)? *</label>
+      <div class="options">
+        <label><input type="radio" name="alias"> Yes</label>
+        <label><input type="radio" name="alias"> No</label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label>Have you ever changed your name? *</label>
+      <div class="options">
+        <label><input type="radio" name="changedName"> Yes</label>
+        <label><input type="radio" name="changedName"> No</label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label>Date of Birth (DD/MM/YYYY) *</label>
+      <input type="date">
+    </div>
+
+    <div class="form-row">
+      <label>Village/Town/City *</label>
+      <input type="text">
+    </div>
+
+    <div class="form-row">
+      <label>Country (If abroad)</label>
+      <select><option>Select</option></select>
+    </div>
+
+    <div class="form-row">
+      <label>State (If in India) *</label>
+      <select><option>Select</option></select>
+    </div>
+
+    <div class="form-row">
+      <label>District (If in India) *</label>
+      <select><option>Select</option></select>
+    </div>
+
+    <div class="form-row">
+      <label>Gender *</label>
+      <select>
+        <option>Select</option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label>Marital Status *</label>
+      <select>
+        <option>Select</option>
+        <option>Single</option>
+        <option>Married</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <label>Citizenship of India by *</label>
+      <select><option>Select</option></select>
+    </div>
+
+    <div class="form-row">
+      <label>PAN (If available)</label>
+      <input type="text">
+    </div>
+
+    <div class="form-row">
+      <label>Voter ID (If available)</label>
+      <input type="text">
+    </div>
+
+    <div class="form-row">
+      <label>Employment Type *</label>
+      <select><option>Select</option></select>
+    </div>
+
+    <div class="form-row">
+      <label>Is either of your parent/spouse a government servant?</label>
+      <div class="options">
+        <label><input type="radio" name="govServ"> Yes</label>
+        <label><input type="radio" name="govServ"> No</label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label>Educational Qualification *</label>
+      <select><option>Select</option></select>
+    </div>
+
+    <div class="form-row">
+      <label>Are you eligible for Non-ECR category? *</label>
+      <div class="options">
+        <label><input type="radio" name="nonECR"> Yes</label>
+        <label><input type="radio" name="nonECR"> No</label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label>Visible Distinguishing Mark</label>
+      <input type="text">
+    </div>
+  </div>
+</body>
+</html>
+
