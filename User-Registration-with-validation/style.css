@@ -104,6 +104,16 @@ body {
   color: white;
   font-size: 14px;
   cursor: pointer;
+  background-color:#4d0066ef;
+}
+.social-buttons button a {
+  color: white;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  height: 100%;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 
@@ -219,9 +229,9 @@ body {
   flex: 1;
   margin: 0 5px;
   display: flex;
-  text-decoration: none;
   justify-content: center;
   align-items: center;
+  color:#4d0066ef;
 }
 
 
@@ -237,9 +247,10 @@ body {
 }
 
 .error-msg-alt {
-  color: red;
-  font-size: 13px;
-  margin: 5px 0;
+  color:black;
+  font-size:10px;
+  margin-right:180px;
+
 }
 
 .success-msg-alt {
@@ -249,11 +260,11 @@ body {
 }
 .password-wrapper {
   position: relative;
-  width:19vw;
 }
 
 .password-wrapper input {
-  width:19vw;
+  width:100%;
+  max-width:290px;
   padding: 12px 40px 12px 12px; /* leave space for the eye icon */
   border-radius: 8px;
   border: none;
@@ -262,9 +273,9 @@ body {
 }
 
 .toggle-password {
-  position: absolute;
-  right:5px;
-  top: 50%;
+  position:absolute;
+  right:10px;
+  top:45%;
   transform: translateY(-50%);
   cursor: pointer;
   color: #555;
@@ -275,10 +286,6 @@ body {
 }
 .padding{
     padding-top:40px;
-}
-.coloring{
-
-    background-color:#4d0066;
 }
 .reset{
     text-align: right;
@@ -297,4 +304,61 @@ body {
   font-size: 12px;
   margin: 5px 0 15px;
   cursor: pointer;
+}
+.social-options a {
+  flex: 1;
+  margin: 0 5px;
+  display: flex;
+  text-decoration: none;
+  justify-content: center;
+  align-items: center;
+}
+.moving{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+}
+.input-group {
+      position: relative;
+      margin-bottom: 20px;
+}
+.input-group .icon-right {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color:#660066;
+      cursor: pointer;
+      font-size: 18px;
+      user-select: none;
+    }
+input:hover {
+  outline: 2px solid #b300b3; 
+  border-color: #b300b3;
+  box-shadow: 0 0 8px rgba(179, 0, 179, 0.5); 
+}
+.logout-edit{
+  margin-top:300px;
+  border:none;
+  background-color:transparent;
+  padding:10px;
+  color:#3b003b;
+  text-decoration:underline;
+}
+
+nav {
+    width: 100%;
+}
+
+.hero {
+    flex: 1;
+}
+
+.hero-box {
+    max-width: 500px;
+    background: rgba(0, 0, 0, 0.3); /* semi-transparent overlay */
+}
+
+.hero-box h1, .hero-box p {
+    color: white;
 }

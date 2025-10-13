@@ -10,6 +10,9 @@
     #sectionLogin {
       display: none;
     }
+    #sectionHomePage{
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -17,29 +20,41 @@
     <div class="register-card">
       <h1 class="homeHead">Create Account</h1>
       <form id="myForm">
-        <input type="text" id="fullname" placeholder="User Name" />
-        <input type="email" id="reg-email" placeholder="Email" />
+        <div class="input-group">
+          <input type="text" id="fullname" placeholder="User Name" />
+          <i class="fas fa-user icon-right"></i>
+        </div>
+        <div class="input-group">
+          <input type="text" id="reg-email" placeholder="Email" />
+          <i class="fas fa-envelope icon-right"></i>
+        </div>
         <p class="error-msg-alt" id="error"></p>
         <div class="password-wrapper">
-            <input type="password" id="reg-password" placeholder="Password" />
-            <span class="toggle-password" onclick="togglePassword()">
-                <i class="fas fa-eye" id="eye-icon"></i>
-            </span>
+          <input type="password" id="reg-password" placeholder="Password" />
+          <span class="toggle-password" onclick="togglePassword('reg-password')">
+            <i class="fas fa-eye"></i>
+          </span>
         </div>
 
-        <input type="password" id="confirm-password" placeholder="Confirm Password" />
-        <p class="reset"><a href="#">Reset!</a></p>
+        <div class="password-wrapper">
+          <input type="password" id="confirm-password" placeholder="Confirm Password" />
+          <span class="toggle-password" onclick="togglePassword('confirm-password')">
+            <i class="fas fa-eye"></i>
+          </span>
+        </div>
+        <p class="error-msg-alt" id="error2"></p>
+
+        <p class="reset" id="reset-msg"><a href="#">Reset!</a></p>
         <button class="register-btn">Sign Up</button>
 
         <div class="divider-alt">or sign up with</div>
 
         <div class="social-options">
-            <a href="https://accounts.google.com/signup" target="_blank"><i class="fab fa-google" ></i></a>
-            <a href="https://twitter.com/i/flow/signup" target="_blank"><i class="fab fa-facebook"></i></a>
-            <a href="https://www.facebook.com/r.php" target="_blank"><i class="fab fa-twitter"></i></a>
+          <a href="https://accounts.google.com/signup" target="_blank"><i class="fab fa-google"></i></a>
+          <a href="https://twitter.com/i/flow/signup" target="_blank"><i class="fab fa-twitter"></i></a>
+          <a href="https://www.facebook.com/r.php" target="_blank"><i class="fab fa-facebook"></i></a>
         </div>
-
-
+        
         <p class="signin-link">
             Already have an account? 
             <a href="#" onclick="showLogin()">Log in</a>
@@ -51,32 +66,61 @@
   <!-- Login Section -->
   <div id="sectionLogin" class="login-container">
     <div class="login-card">
-      <h3>Login</h3>
+      <h2>Login</h2>
+     <form id="Signingin">
+          <div class="input-group">
+              <input type="text" id="login-email" placeholder="Email" />
+              <i class="fas fa-envelope icon-right"></i>
+          </div>
+          <div class="password-wrapper">
+              <input type="password" id="login-password" placeholder="Password" />
+              <span class="toggle-password" onclick="togglePassword('login-password')">
+                <i class="fas fa-eye"></i>
+              </span>
+          </div>
+          <p class="error-msg-alt" id="login-error"></p>
+          <div class="moving">
+            <p class="forgot">
+              <a href="#" onclick="forgotPassword()">Forgot Password?</a>
+            </p>
 
-      <input type="email" id="email" placeholder="Email" />
-      <input type="password" id="password" placeholder="Password" />
-      <div class="d-flex flex-row move">
-        <p class="remember"><a href="#">Remember Me</a></p>
-        <p class="forgot"><a href="#">Forgot Password?</a></p>
-      </div>
-      <button class="login-btn">Log in</button>
+          </div>
+          <button class="login-btn">Log in</button>
 
-      <div class="divider">or continue with</div>
+          <div class="divider">or continue with</div>
 
-      <div class="social-buttons">
-        <button class="coloring">G</button>
-        <button class="coloring">f</button>
-        <button class="coloring">X</button>
-      </div>
+          <div class="social-buttons">
+            <button> <a href="https://accounts.google.com/signin" target="_blank">G </a> </button>
+            <button> <a href="https://www.facebook.com/login" target="_blank"> f </a></button>
+            <button> <a href="https://twitter.com/login" target="_blank"> X </a> </button>
+          </div>
 
-      <p class="signup">
-        Don’t have an account? 
-        <a href="#" onclick="showRegister()">Sign up</a> for free
-      </p>
+          <p class="signup">
+            Don’t have an account?
+            <a href="#" onclick="showRegister()">Sign up</a> for free
+          </p>
+      </form>
     </div>
   </div>
+     <div id="sectionHomePage" class="homePageContainer">
+        <div class="hero d-flex flex-column justify-content-center align-items-center text-center text-white">
+            <div class="hero-box p-5 border border-white rounded">
+                <h1 class="display-4 fw-bold">WELCOME HOME! </h1>
+                <p></p>
+            </div>
+        </div>
+  
+           <button id="logout-btn" class="logout-edit">Logout -></button>
+  
+    </div>
+
 
   <script>
+    
+    function showHomePage(){
+      document.getElementById("sectionLogin").style.display = "none";
+      document.getElementById("sectionHomePage").style.display = "flex";
+    }
     function showLogin() {
       document.getElementById("sectionHome").style.display = "none";
       document.getElementById("sectionLogin").style.display = "flex";
@@ -86,29 +130,158 @@
       document.getElementById("sectionLogin").style.display = "none";
       document.getElementById("sectionHome").style.display = "flex";
     }
-    function togglePassword() {
-    const passwordInput = document.getElementById("reg-password");
-    const eyeIcon = document.getElementById("eye-icon");
 
-    if (passwordInput.type === "password") {
-      passwordInput.type = "text";
-      eyeIcon.classList.remove("fa-eye");
-      eyeIcon.classList.add("fa-eye-slash");
-    } else {
-      passwordInput.type = "password";
-      eyeIcon.classList.remove("fa-eye-slash");
-      eyeIcon.classList.add("fa-eye");
-    }
+  function togglePassword(id) {
+  const passwordInput = document.getElementById(id);
+  const eyeIcon = document.querySelector(`#${id} + .toggle-password i`);
+
+  if (passwordInput.type === "password") {
+    passwordInput.type = "text";
+    eyeIcon.classList.replace("fa-eye", "fa-eye-slash");
+  } else {
+    passwordInput.type = "password";
+    eyeIcon.classList.replace("fa-eye-slash", "fa-eye");
   }
-    let form=document.getElementById("myForm");
-    form.addEventListener("submit",function(){
-        let email=document.getElementById("reg-email");
-        let e=document.getElementById("error");
-        if(!email.includes("@")){
-                e.textContent="* Please Enter a valid mail Id";
-        }
-    })
- 
- </script>
+}
+  function forgotPassword() {
+  let email = prompt("Enter your registered email:");
+  if (!email) return;
+
+  let storedData = JSON.parse(localStorage.getItem(email));
+  if (!storedData) {
+    alert("❌ No account found with this email.");
+    return;
+  }
+
+  let newPass = prompt("Enter your new password:");
+  if (!newPass) {
+    alert("❌ Password cannot be empty.");
+    return;
+  }
+
+  let confirmPass = prompt("Confirm new password:");
+  if (newPass !== confirmPass) {
+    alert("❌ Passwords do not match!");
+    return;
+  }
+
+  storedData.passkey = newPass;
+  localStorage.setItem(email, JSON.stringify(storedData));
+  alert("✅ Password updated successfully! You can now log in.");
+}
+
+
+    // ✅ Form Validation and Local Storage
+    let form = document.getElementById("myForm");
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      let user=document.getElementById("fullname").value
+      let email = document.getElementById("reg-email");
+      let e = document.getElementById("error");
+      let confirmError = document.getElementById("error2");
+      let e2=document.getElementById("error")
+      let getPass = document.getElementById("reg-password");
+      let getConfirm = document.getElementById("confirm-password");
+      //empty check 
+
+      if (!user || !email.value.trim() || !getPass.value.trim() || !getConfirm.value.trim()) {
+        alert("⚠️ All fields are required!");
+        return;
+      }
+      // Email validation
+      if (!email.value.includes("@")) {
+        e.textContent = "* Please Enter a valid mail Id";
+      } else {
+        e.textContent = "";
+      }
+
+      // Password match validation
+      if (getConfirm.value !== getPass.value) {
+        confirmError.textContent = "* Password do not match";
+      } else {
+        confirmError.textContent = "";
+      }
+       
+      // email exists
+      if (localStorage.getItem(email.value)) {
+        e2.textContent = "* Email already Exists";
+        return; // stop registration
+      }
+
+      // Save to Local Storage (if valid)
+      let userData={
+        userName:user,
+        mail:email.value,
+        passkey:getPass.value
+      };
+      if (email.value.includes("@") && getConfirm.value === getPass.value) {
+        let getName = document.getElementById("fullname");
+
+        localStorage.setItem(email.value,JSON.stringify(userData));
+        alert("✅ Account Created Successfully! Please log in.");
+        form.reset();
+        showLogin();
+      }
+    });
+    let n=document.getElementById("fullname");
+    let em=document.getElementById("reg-email");
+    let pass=document.getElementById("reg-password");
+    let cPass=document.getElementById("confirm-password");
+    
+    
+   let resetBtn = document.getElementById("reset-msg");
+    resetBtn.addEventListener("click", function (event) {
+      event.preventDefault(); // prevent the link default action
+      form.reset();
+
+      // Re-select the error elements (always available globally)
+      document.getElementById("error").textContent = "";
+      document.getElementById("error2").textContent = "";
+      document.getElementById("login-error").textContent = "";
+    });
+
+    // ✅ User Authentication
+
+      let mySignIn = document.getElementById("Signingin");
+      let loginError = document.getElementById("login-error");
+
+      mySignIn.addEventListener("submit", function(event) {
+          event.preventDefault();
+
+          let logEmail = document.getElementById("login-email");
+          let logPass = document.getElementById("login-password");
+          let storedData = JSON.parse(localStorage.getItem(logEmail.value));
+
+          if (storedData && storedData.passkey === logPass.value) {
+              // ✅ Successful login
+              alert("Login Successful!");
+              logEmail.value = "";
+              logPass.value = "";
+              loginError.textContent = "";
+
+              // Show home page
+              document.getElementById("sectionLogin").style.display = "none";
+              document.getElementById("sectionHomePage").style.display = "flex";
+          } else {
+              // ❌ Invalid credentials
+              loginError.textContent = "* Invalid email or password";
+          }
+      });
+
+      // Logout functionality
+          document.getElementById("logout-btn").addEventListener("click", function() {
+              alert("You are logged out!");
+              document.getElementById("sectionHomePage").style.display = "none";
+              document.getElementById("sectionLogin").style.display = "flex";
+          });
+
+            document.getElementById("sign-in-btn").addEventListener("click", function() {
+                document.getElementById("sectionHomePage").style.display = "none";
+                document.getElementById("sectionHome").style.display = "flex";
+            });
+
+
+  </script>
+  
 </body>
 </html>
