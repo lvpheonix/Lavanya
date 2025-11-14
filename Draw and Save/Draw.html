@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Draw & Save</title>
+<style>
+body{text-align:center;font-family:Arial;background:#eef}
+canvas{border:2px solid #000;background:#fff;cursor:crosshair}
+</style>
+</head>
+<body>
+<h3>🎨 Draw & Save</h3>
+<canvas id="c" width="800" height="400"></canvas><br>
+<input type="color" id="clr" value="#000">
+<input type="range" id="sz" min="1" max="30" value="5">
+<button id="clrBtn">Clear</button>
+<button id="saveBtn">Save</button>
+<script>
+// setup
+const c=document.getElementById("c"),x=c.getContext("2d");
+let draw=false;
+// start drawing
+c.onmousedown=e=>(draw=true,drawLine(e));
+// stop drawing
+c.onmouseup=()=>x.beginPath(draw=false);
+// draw continuously
+c.onmousemove=e=>draw&&drawLine(e);
+// function to draw line
+function drawLine(e){
+ const r=c.getBoundingClientRect(),X=e.clientX-r.left,Y=e.clientY-r.top;
+ x.lineWidth=sz.value;x.lineCap="round";x.strokeStyle=clr.value;
+ x.lineTo(X,Y);x.stroke();x.beginPath();x.moveTo(X,Y);
+}
+// clear canvas
+clrBtn.onclick=()=>x.clearRect(0,0,c.width,c.height);
+// save as image
+saveBtn.onclick=()=>{let a=document.createElement('a');a.download='drawing.png';a.href=c.toDataURL();a.click();}
+</script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Event Scheduler</title>
+<style>
+body{font-family:Arial;text-align:center;background:#f2f2f2}
+#cal{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;max-width:500px;margin:auto}
+.day{background:#fff;padding:20px;cursor:pointer;border:1px solid #ddd}
+.day:hover{background:#e0f0ff}
+header{display:flex;justify-content:center;align-items:center;gap:10px}
+form{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+background:#fff;padding:20px;border-radius:8px;box-shadow:0 0 10px #aaa}
+input{display:block;margin:5px auto;padding:5px;width:80%}
+button{margin:5px;padding:5px 10px}
+.event{font-size:12px;background:#0078ff;color:#fff;padding:2px;border-radius:3px;margin-top:5px}
+</style>
+</head>
+<body>
+<h2>📅 Event Scheduler</h2>
+<header>
+  <button onclick="chg(-1)">◀</button>
+  <h3 id="m"></h3>
+  <button onclick="chg(1)">▶</button>
+</header>
+<div id="cal"></div>
+
+<form id="f">
+  <h3>Add Event</h3>
+  <input id="title" placeholder="Event Title">
+  <input id="loc" placeholder="Location">
+  <input id="time" type="time">
+  <button type="button" onclick="save()">OK</button>
+  <button type="button" onclick="f.style.display='none'">Cancel</button>
+</form>
+
+<script>
+let d=new Date(),ev={},sel;
+function load(){
+  cal.innerHTML='';m.innerText=d.toLocaleString('default',{month:'long',year:'numeric'});
+  let y=d.getFullYear(),mo=d.getMonth(),fd=new Date(y,mo,1).getDay(),days=new Date(y,mo+1,0).getDate();
+  for(let i=0;i<fd;i++)cal.innerHTML+='<div></div>';
+  for(let i=1;i<=days;i++){
+    let key=`${y}-${mo}-${i}`,html=`<div class='day' onclick='openForm("${key}")'>${i}`;
+    if(ev[key])html+=`<div class='event'>${ev[key].title}<br>${ev[key].time}</div>`;
+    cal.innerHTML+=html+'</div>';
+  }
+}
+function chg(n){d.setMonth(d.getMonth()+n);load();}
+function openForm(k){sel=k;f.style.display='block';}
+function save(){
+  ev[sel]={title:title.value,loc:loc.value,time:time.value};
+  f.style.display='none';title.value=loc.value=time.value='';
+  load();
+}
+load();
+</script>
+</body>
+</html>

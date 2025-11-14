@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Employee Table</title>
+<style>
+body{font-family:Arial;text-align:center;background:#f2f2f2}
+input,select{margin:5px;padding:5px}
+table{margin:auto;border-collapse:collapse;width:90%;background:white}
+th,td{border:1px solid #ccc;padding:8px;text-align:left}
+th{cursor:pointer;background:#0078ff;color:#fff}
+tr:hover{background:#eef}
+</style>
+</head>
+<body>
+<h2>👨‍💼 Interactive Employee Table</h2>
+<input id="s" placeholder="Search...">
+<select id="f"><option value="">All</option><option>Engineering</option><option>HR</option><option>Marketing</option><option>Finance</option><option>Sales</option></select>
+<table><thead><tr><th data-c="name">Name</th><th data-c="email">Email</th><th data-c="dept">Dept</th></tr></thead><tbody id="tb"></tbody></table>
+
+<script>
+let d=[],depts=["Engineering","HR","Marketing","Finance","Sales"];
+async function load(){
+  let res=await fetch("https://randomuser.me/api/?results=25");
+  let j=await res.json();
+  d=j.results.map(x=>({
+    name:x.name.first+" "+x.name.last,
+    email:x.email,
+    dept:depts[Math.floor(Math.random()*depts.length)]
+  }));
+  show(d);
+}
+function show(a){
+  tb.innerHTML=a.map(e=>`<tr><td>${e.name}</td><td>${e.email}</td><td>${e.dept}</td></tr>`).join("");
+}
+s.oninput=f.onchange=()=>show(d.filter(x=>x.name.toLowerCase().includes(s.value.toLowerCase())&&(!f.value||x.dept==f.value)));
+document.querySelectorAll("th").forEach(th=>th.onclick=()=>{let c=th.dataset.c;d.sort((a,b)=>a[c]>b[c]?1:-1);show(d)});
+load();
+</script>
+</body>
+</html>
