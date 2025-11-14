@@ -2,40 +2,57 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>🎨 Draw and Save</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tiny Photo Editor (Rotate)</title>
 <style>
-body{text-align:center;font-family:Arial;background:#f0f0f0;}
-canvas{border:2px solid #333;background:#fff;cursor:crosshair;}
-button,input{margin:5px;padding:8px;font-size:16px;}
+  body{font-family:Arial;text-align:center;background:#f2f2f2;padding:20px}
+  canvas{border:2px dashed #aaa;max-width:300px;margin:10px}
+  input[type=range]{width:200px}
+  button{margin:5px;padding:8px 15px;border:0;border-radius:5px;background:#0078ff;color:#fff}
 </style>
 </head>
 <body>
-<h2>🎨 Draw and Save</h2>
-<canvas id="c" width="800" height="500"></canvas><br>
-<input type="color" id="clr" value="#000">
-<input type="range" id="sz" min="1" max="50" value="5">
-<button id="clrBtn">Clear</button>
-<button id="saveBtn">Save</button>
+<h2>🖼️ Tiny Photo Editor</h2>
+<input type="file" id="upload" accept="image/*"><br>
+<canvas id="canv"></canvas><br>
+<label>B:<input type="range" id="b" min="0" max="200" value="100"></label>
+<label>C:<input type="range" id="c" min="0" max="200" value="100"></label>
+<label>S:<input type="range" id="s" min="0" max="200" value="100"></label><br>
+<button id="rotate">Rotate</button>
+<button id="reset">Reset</button>
+<button id="save">Download</button>
 
 <script>
-const c=document.getElementById("c"),x=c.getContext("2d");
-let draw=false;
-c.onmousedown=e=>(draw=true,drawLine(e));
-c.onmouseup=()=>x.beginPath(draw=false);
-c.onmousemove=e=>draw&&drawLine(e);
-function drawLine(e){
- const r=c.getBoundingClientRect(),X=e.clientX-r.left,Y=e.clientY-r.top;
- x.lineWidth=sz.value;x.lineCap="round";x.strokeStyle=clr.value;
- x.lineTo(X,Y);x.stroke();x.beginPath();x.moveTo(X,Y);
+let cv=document.getElementById('canv'),cx=cv.getContext('2d'),img=new Image(),angle=0;
+upload.onchange=e=>{
+  img.src=URL.createObjectURL(e.target.files[0]);
+  img.onload=()=>{cv.width=img.width;cv.height=img.height;draw();}
 }
-clrBtn.onclick=()=>x.clearRect(0,0,c.width,c.height);
-saveBtn.onclick=async()=>{
- try{
-  const h=await showSaveFilePicker({suggestedName:'drawing.png',types:[{accept:{'image/png':['.png']}}]});
-  const w=await h.createWritable();const b=await new Promise(r=>c.toBlob(r,'image/png'));
-  await w.write(b);await w.close();alert("✅ Saved!");
- }catch(e){alert("❌ Save cancelled.");}
-};
+[b,c,s].forEach(x=>x.oninput=draw);
+
+function draw(){
+  cx.clearRect(0,0,cv.width,cv.height);
+  cx.filter=`brightness(${b.value}%) contrast(${c.value}%) saturate(${s.value}%)`;
+  cx.save();
+  cx.translate(cv.width/2,cv.height/2);
+  cx.rotate(angle*Math.PI/180);
+  cx.drawImage(img,-img.width/2,-img.height/2);
+  cx.restore();
+}
+
+rotate.onclick=()=>{
+  angle=(angle+90)%360;
+  [cv.width,cv.height]=angle%180===0?[img.width,img.height]:[img.height,img.width];
+  draw();
+}
+
+reset.onclick=()=>{b.value=c.value=s.value=100;angle=0;cv.width=img.width;cv.height=img.height;draw();}
+save.onclick=()=>{
+  let a=document.createElement('a');
+  a.download='edited.png';
+  a.href=cv.toDataURL();
+  a.click();
+}
 </script>
 </body>
 </html>
